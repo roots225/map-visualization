@@ -1,23 +1,23 @@
 export type userStoreStateType = {
-    accessToken: string | null;
-    username: string;
-    avatar: string;
-    permissions: string[];
+    _accessToken: string | null;
+    _username: string;
+    _avatar: string;
+    _permissions: string[];
 };
 
 export type settingsStoreStateType = {
-    tabsBar: boolean;
-    logo: string;
-    collapse: boolean;
-    layout: string;
-    header: string;
-    device: string;
-    themeBar: boolean;
+    _tabsBar: boolean;
+    _logo: string;
+    _collapse: boolean;
+    _layout: string;
+    _header: string;
+    _device: string;
+    _themeBar: boolean;
 };
 
 export interface routesStoreStateType {
-    routes: RouteRecord[];
-    partialRoutes: RouteRecord[];
+    _routes: RouteRecord[];
+    _partialRoutes: RouteRecord[];
 }
 
 export type themeType = {

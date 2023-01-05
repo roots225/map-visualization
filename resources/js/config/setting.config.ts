@@ -19,7 +19,7 @@ export default {
     //开发环境端口号
     devPort: "81",
     //版本号
-    version: process.env.VUE_APP_VERSION,
+    version: "1.0.0",
     //这一项非常重要！请务必保留MIT协议下package.json及copyright作者信息 即可免费商用，不遵守此项约定你将无法使用该框架，如需自定义版权信息请联系QQ1204505056
     copyright: "vab",
     //是否显示页面底部自定义版权信息

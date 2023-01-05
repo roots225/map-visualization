@@ -1,5 +1,6 @@
 import { RouteRecord } from "vue-router";
-import AppLayout from "@/layouts/app-layout.vue";
+// import AppLayout from "@/layouts/app-layout.vue";
+import AppLayout from "@/layouts/index.vue";
 
 const routes: RouteRecord[] = [
     {

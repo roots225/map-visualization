@@ -4,8 +4,8 @@
  * @param path
  * @returns {boolean}
  */
-export function isExternal(path) {
-  return /^(https?:|mailto:|tel:)/.test(path)
+export function isExternal(path: string) {
+    return /^(https?:|mailto:|tel:)/.test(path);
 }
 /**
  * @author https://vue-admin-beautiful.com （不想保留author可删除）
@@ -13,8 +13,8 @@ export function isExternal(path) {
  * @param str
  * @returns {boolean}
  */
-export function isPassword(str) {
-  return str.length >= 6
+export function isPassword(str: string) {
+    return str.length >= 6;
 }
 /**
  * @author chuzhixin 1204505056@qq.com （不想保留author可删除）
@@ -22,8 +22,8 @@ export function isPassword(str) {
  * @param str
  * @returns {boolean}
  */
-export function isString(str) {
-  return typeof str === 'string' || str instanceof String
+export function isString(str: any) {
+    return typeof str === "string" || str instanceof String;
 }
 /**
  * @author chuzhixin 1204505056@qq.com （不想保留author可删除）
@@ -31,11 +31,11 @@ export function isString(str) {
  * @param arg
  * @returns {arg is any[]|boolean}
  */
-export function isArray(arg) {
-  if (typeof Array.isArray === 'undefined') {
-    return Object.prototype.toString.call(arg) === '[object Array]'
-  }
-  return Array.isArray(arg)
+export function isArray(arg: any) {
+    if (typeof Array.isArray === "undefined") {
+        return Object.prototype.toString.call(arg) === "[object Array]";
+    }
+    return Array.isArray(arg);
 }
 /**
  * @author chuzhixin 1204505056@qq.com （不想保留author可删除）
@@ -43,7 +43,7 @@ export function isArray(arg) {
  * @param str
  * @returns {boolean}
  */
-export function isPhone(str) {
-  const reg = /^1\d{10}$/
-  return reg.test(str)
+export function isPhone(str: any) {
+    const reg = /^1\d{10}$/;
+    return reg.test(str);
 }

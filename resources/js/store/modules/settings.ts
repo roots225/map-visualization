@@ -7,49 +7,51 @@ import defaultSettings from "@/config";
 import { settingsStoreStateType } from "@/types";
 
 const { tabsBar, logo, layout, header, themeBar } = defaultSettings;
-const theme =
-    JSON.parse(localStorage.getItem("vue-admin-beautiful-theme") ?? "") || "";
+let theme: any = "";
+if (localStorage.getItem("vue-admin-beautiful-theme")) {
+    theme = JSON.parse(localStorage.getItem("vue-admin-beautiful-theme") ?? "");
+}
 
 export default defineStore("settings", {
     state: (): settingsStoreStateType => ({
-        tabsBar: theme.tabsBar || tabsBar,
-        logo,
-        collapse: false,
-        layout: theme.layout || layout,
-        header: theme.header || header,
-        device: "desktop",
-        themeBar,
+        _tabsBar: theme.tabsBar || tabsBar,
+        _logo: logo,
+        _collapse: false,
+        _layout: theme.layout || layout,
+        _header: theme.header || header,
+        _device: "desktop",
+        _themeBar: themeBar,
     }),
     getters: {
-        collapse: (state: settingsStoreStateType) => state.collapse,
-        device: (state: settingsStoreStateType) => state.device,
-        header: (state: settingsStoreStateType) => state.header,
-        layout: (state: settingsStoreStateType) => state.layout,
-        logo: (state: settingsStoreStateType) => state.logo,
-        tabsBar: (state: settingsStoreStateType) => state.tabsBar,
-        themeBar: (state: settingsStoreStateType) => state.themeBar,
+        collapse: (state: settingsStoreStateType) => state._collapse,
+        device: (state: settingsStoreStateType) => state._device,
+        header: (state: settingsStoreStateType) => state._header,
+        layout: (state: settingsStoreStateType) => state._layout,
+        logo: (state: settingsStoreStateType) => state._logo,
+        tabsBar: (state: settingsStoreStateType) => state._tabsBar,
+        themeBar: (state: settingsStoreStateType) => state._themeBar,
     },
     actions: {
         changeLayout(layout: string) {
-            this.layout = layout;
+            this._layout = layout;
         },
         changeHeader(header: string) {
-            this.header = header;
+            this._header = header;
         },
         changeTabsBar(tabsBar: boolean) {
-            this.tabsBar = tabsBar;
+            this._tabsBar = tabsBar;
         },
         changeCollapse() {
-            this.collapse = !this.collapse;
+            this._collapse = !this._collapse;
         },
         foldSideBar() {
-            this.collapse = true;
+            this._collapse = true;
         },
         openSideBar() {
-            this.collapse = false;
+            this._collapse = false;
         },
         toggleDevice(device: string) {
-            this.device = device;
+            this._device = device;
         },
     },
 });

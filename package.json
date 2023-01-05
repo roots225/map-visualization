@@ -37,7 +37,6 @@
         "vab-icon": "^0.0.1",
         "vue": "^3.2.45",
         "vue-echarts": "^6.5.0",
-        "vuex": "^4.1.0",
         "zx-count": "^0.3.7",
         "zx-layouts": "^0.6.29",
         "zx-magnifie": "^0.4.0",

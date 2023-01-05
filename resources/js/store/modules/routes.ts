@@ -11,17 +11,17 @@ import { routesStoreStateType } from "@/types";
 
 export default defineStore("routes", {
     state: (): routesStoreStateType => ({
-        routes: [],
-        partialRoutes: [],
+        _routes: [],
+        _partialRoutes: [],
     }),
     getters: {
-        routes: (state: routesStoreStateType) => state.routes,
-        partialRoutes: (state: routesStoreStateType) => state.partialRoutes,
+        routes: (state: routesStoreStateType) => state._routes,
+        partialRoutes: (state: routesStoreStateType) => state._partialRoutes,
     },
     actions: {
         async setRoutes(permissions: string[]) {
             const finallyAsyncRoutes = await filterAsyncRoutes([], permissions);
-            this.routes = constantRoutes.concat([]);
+            this._routes = constantRoutes.concat([]);
             return this.routes;
         },
         async setAllRoutes() {
@@ -31,11 +31,11 @@ export default defineStore("routes", {
                 redirect: "/404",
             });
             let accessRoutes = data;
-            this.routes = constantRoutes.concat(accessRoutes);
+            this._routes = constantRoutes.concat(accessRoutes);
             return accessRoutes;
         },
         setPartialRoutes(accessRoutes: RouteRecord[]) {
-            this.partialRoutes = constantRoutes.concat(accessRoutes);
+            this._partialRoutes = constantRoutes.concat(accessRoutes);
             return accessRoutes;
         },
     },

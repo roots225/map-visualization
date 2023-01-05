@@ -14,15 +14,15 @@
       </el-col>
       <el-col :xs="20" :sm="12" :md="12" :lg="12" :xl="12">
         <div class="right-panel">
-          <vab-error-log />
+          <!-- <vab-error-log /> -->
           <vab-full-screen-bar @refresh="refreshRoute" />
-          <vab-theme-bar class="hidden-xs-only" />
-          <vab-icon
+          <!-- <vab-theme-bar class="hidden-xs-only" /> -->
+          <!-- <vab-icon
             title="重载所有路由"
             :pulse="pulse"
             :icon="['fas', 'redo']"
             @click="refreshRoute"
-          />
+          /> -->
           <vab-avatar />x
         </div>
       </el-col>
@@ -32,7 +32,8 @@
 
 <script lang="ts">
 import useSettingsStore from "@/store/modules/settings";
-import { computed } from "vue";
+import usetabsBarStore from "@/store/modules/tabsBar";
+import useRoutesStore from "@/store/modules/routes";
 
 export default {
   name: "VabNavBar",
@@ -43,34 +44,44 @@ export default {
   },
   setup() {
     const settingsStore = useSettingsStore();
-
-    return {
-      pulse: false,
-      collapse: computed(() => useSettingsStore.collapse),
-      visitedRoutes: computed(() => useSettingsStore.collapse),
-      device: computed(() => useSettingsStore.device),
-      routes: computed(() => useSettingsStore.device),
-    };
+    const tabsBarStore = usetabsBarStore();
+    const routesStore = useRoutesStore();
+    return { settingsStore, tabsBarStore, routesStore };
+  },
+  computed: {
+    collapse() {
+      return this.settingsStore.collapse;
+    },
+    visitedRoutes() {
+      return this.tabsBarStore.visitedRoutes;
+    },
+    devicevisitedRoutes() {
+      return this.settingsStore.device;
+    },
+    routesvisitedRoutes() {
+      return this.routesStore.routes;
+    },
   },
   methods: {
-    // ...mapActions({
-    //   changeCollapse: "settings/changeCollapse",
-    // }),
+    changeCollapse() {
+      this.settingsStore.changeCollapse();
+    },
     handleCollapse() {
       this.changeCollapse();
     },
     async refreshRoute() {
-      this.$baseEventBus.$emit("reload-router-view");
-      this.pulse = true;
-      setTimeout(() => {
-        this.pulse = false;
-      }, 1000);
+      // this.$baseEventBus.$emit("reload-router-view");
+      // this.pulse = true;
+      // setTimeout(() => {
+      //   this.pulse = false;
+      // }, 1000);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
 .nav-bar-container {
   position: relative;
   height: $base-nav-bar-height;

@@ -4,20 +4,20 @@ import { getAccessToken } from "@/utils/accessToken";
 
 export default defineStore("user", {
     state: (): userStoreStateType => ({
-        accessToken: getAccessToken(),
-        username: "",
-        avatar: "",
-        permissions: [],
+        _accessToken: getAccessToken(),
+        _username: "",
+        _avatar: "",
+        _permissions: [],
     }),
     getters: {
-        accessToken: (state) => state.accessToken,
-        username: (state) => state.username,
-        avatar: (state) => state.avatar,
-        permissions: (state) => state.permissions,
+        accessToken: (state) => state._accessToken,
+        username: (state) => state._username,
+        avatar: (state) => state._avatar,
+        permissions: (state) => state._permissions,
     },
     actions: {
         setPermissions(permissions: string[]) {
-            this.permissions = permissions;
+            this._permissions = permissions;
         },
         async login(userInfo: any) {
             /*
@@ -71,8 +71,8 @@ export default defineStore("user", {
             // await resetRouter();
         },
         resetAccessToken() {
-            this.permissions = [];
-            this.accessToken = "";
+            this._permissions = [];
+            this._accessToken = "";
             // removeAccessToken();
         },
     },
