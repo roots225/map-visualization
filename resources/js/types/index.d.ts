@@ -26,3 +26,10 @@ export type themeType = {
     themeBar: boolean;
     tabsBar: boolean;
 };
+
+export interface markerPoint {
+    id: number;
+    name: string;
+    lat: number;
+    lng: number;
+}

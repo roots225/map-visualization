@@ -79,6 +79,8 @@ export default {
       }
     }
 
+    console.log(settingsStore.layout);
+
     return {
       settingsStore,
       handleFoldSideBar: settingsStore.foldSideBar,
