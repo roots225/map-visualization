@@ -68,6 +68,7 @@ export default {
     const client: Ref<any> = ref(null);
     const map: Ref<any> = ref(null);
     let loading: Ref<boolean> = ref(false);
+    let _routes = ref([]);
 
     const accessToken = ref(
       "pk.eyJ1Ijoicm9vdHMyMjUiLCJhIjoiY2psNmd2YzdyMHowaTN4cGJtMDlleHM1cSJ9.1VYqihb6zztfoxRct-F0Og"
@@ -113,19 +114,24 @@ export default {
 
       // Show loader
       loading.value = true;
-      // const res = await fetch(
-      //   `https://api.mapbox.com/directions-matrix/v1/${selected}/${position};${destination}?access_token=${accessToken.value}`
-      // );
-      const res = await fetch(
-        `https://api.mapbox.com/directions/v5/${selected}/${position};${destination}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${accessToken.value}`
-      );
+      try {
+        const res = await fetch(
+          `https://api.mapbox.com/directions/v5/${selected}/${position};${destination}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${accessToken.value}`
+        );
 
-      const data = await res.json();
-      if (data.code === "Ok") {
-        const { destinations } = data;
-        const destination = destinations[0];
-        foundDistance.value = destination.distance;
-        console.log(destination);
+        const data = await res.json();
+        if (data.code === "Ok") {
+          const { destinations, routes } = data;
+          if (destinations) {
+            const destination = destinations[0];
+            foundDistance.value = destination.distance;
+          }
+          if (routes) {
+            _routes.value = routes;
+          }
+        }
+      } catch (err) {
+        console.log(err);
       }
 
       // Disable loader
@@ -140,6 +146,7 @@ export default {
       container,
       client,
       map,
+      _routes,
       accessToken,
       points,
       fromPoint,
