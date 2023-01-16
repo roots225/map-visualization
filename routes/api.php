@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get()
+Route::post('/import', [App\Http\Controllers\ImportController::class, 'store']);

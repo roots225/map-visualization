@@ -48,6 +48,10 @@
         >
       </el-col>
     </el-row>
+    <div v-for="_route in _routes" :key="_route.distance">
+      <label for="">{{_route.weight_name}}</label> : 
+      <span>{{_route.distance * 0.001}} Km</span>
+    </div>
     <div class="distance-show">{{ foundDistance }}</div>
     <div class="map-container">
       <div ref="map-container"></div>
@@ -68,7 +72,7 @@ export default {
     const client: Ref<any> = ref(null);
     const map: Ref<any> = ref(null);
     let loading: Ref<boolean> = ref(false);
-    let _routes = ref([]);
+    let _routes: Ref<any[]> = ref([]);
 
     const accessToken = ref(
       "pk.eyJ1Ijoicm9vdHMyMjUiLCJhIjoiY2psNmd2YzdyMHowaTN4cGJtMDlleHM1cSJ9.1VYqihb6zztfoxRct-F0Og"
@@ -85,6 +89,20 @@ export default {
         name: "point 2",
         lat: 5.3154868,
         lng: -4.0172199,
+      },
+      {
+        id: 3,
+        name: "point 3",
+        lat: 48.822092,
+        lng: 2.125294,
+        color: 'green'
+      },
+      {
+        id: 4,
+        name: "point 4",
+        lat: 48.915274,
+        lng: 2.293334,
+        color: 'red'
       },
     ]);
 
@@ -165,7 +183,7 @@ export default {
     this.map = mapHelper.getMap();
 
     this.points.forEach((point, index) => {
-      const option: any = index === 1 ? { color: "black", rotation: 45 } : {};
+      const option: any = point.color ? { color: point.color } : {};
       return mapHelper.addMarker(point, option);
     });
   },

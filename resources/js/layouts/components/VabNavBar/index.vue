@@ -17,12 +17,12 @@
           <!-- <vab-error-log /> -->
           <vab-full-screen-bar @refresh="refreshRoute" />
           <!-- <vab-theme-bar class="hidden-xs-only" /> -->
-          <!-- <vab-icon
+          <vab-icon
             title="重载所有路由"
             :pulse="pulse"
             :icon="['fas', 'redo']"
             @click="refreshRoute"
-          /> -->
+          />
           <vab-avatar />x
         </div>
       </el-col>

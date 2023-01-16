@@ -22,25 +22,25 @@
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown" class="tabs-more">
-        <!-- <el-dropdown-item command="refreshRoute">
+         <el-dropdown-item command="refreshRoute">
           <vab-icon :icon="['fas', 'circle-notch']" />
           刷新
-        </el-dropdown-item> -->
+        </el-dropdown-item>
         <el-dropdown-item command="closeOtherstabs">
-          <!-- <vab-icon :icon="['fas', 'times-circle']" /> -->
+          <vab-icon :icon="['fas', 'times-circle']" />
           关闭其他
         </el-dropdown-item>
         <el-dropdown-item command="closeLefttabs">
-          <!-- <vab-icon :icon="['fas', 'arrow-alt-circle-left']"></vab-icon> -->
+          <vab-icon :icon="['fas', 'arrow-alt-circle-left']"></vab-icon>
           关闭左侧
         </el-dropdown-item>
         <el-dropdown-item command="closeRighttabs">
-          <!-- <vab-icon :icon="['fas', 'arrow-alt-circle-right']"></vab-icon> -->
+          <vab-icon :icon="['fas', 'arrow-alt-circle-right']"></vab-icon>
           关闭右侧
         </el-dropdown-item>
         <el-dropdown-item command="closeAlltabs">
-          <!-- <vab-icon :icon="['fas', 'ban']"></vab-icon> -->
-          关闭全部
+          <vab-icon :icon="['fas', 'ban']"></vab-icon>
+          close all
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>

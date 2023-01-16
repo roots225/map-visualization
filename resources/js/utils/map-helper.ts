@@ -8,7 +8,7 @@ export class MapHelper {
             container,
             // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
             style: "mapbox://styles/mapbox/streets-v12",
-            center: [-3.9977695, 5.3701077],
+            center: [2.293334, 48.915274],
             zoom: 8,
             accessToken,
         });

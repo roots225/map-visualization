@@ -16,8 +16,9 @@ import VabSideBarItem from "@/components/VabSideBar/components/VabSideBarItem.vu
 import VabBreadcrumb from "@/layouts/components/VabBreadcrumb/index.vue";
 import VabFullScreenBar from "@/components/VabFullScreenBar/index.vue";
 import VabAvatar from "@/layouts/components/VabAvatar/index.vue";
+import VabIcon from "@/components/VabIcon/index.vue";
+import VabMenuItem from "@/components/VabSideBar/components/VabMenuItem.vue";
 
-// import VabIcon from "vab-icon";
 
 const app = createApp(App, {});
 app.use(store);
@@ -32,7 +33,9 @@ app.component("vab-logo", VabLogo);
 app.component("vab-side-bar-item", VabSideBarItem);
 app.component("vab-breadcrumb", VabBreadcrumb);
 app.component("vab-full-screen-bar", VabFullScreenBar);
+app.component("vabmenuitem", VabMenuItem);
+app.component("vab-menu-item", VabMenuItem);
 // app.component("vab-theme-bar", VabThemeBar);
-// app.component("vab-icon", VabIcon);
+app.component("vab-icon", VabIcon);
 app.component("vab-avatar", VabAvatar);
 app.mount("#app");

@@ -84,7 +84,8 @@ export default {
       if (isExternal(this.fullPath)) {
         return this.fullPath;
       }
-      return path.resolve(this.fullPath, routePath);
+      console.log(this.fullPath, routePath);
+      return routePath;
     },
   },
 };

@@ -5,13 +5,14 @@
 import { defineStore } from "pinia";
 import constantRoutes from "@/router/routes";
 import { RouteRecord } from "vue-router";
-// import { getRouterList } from '@/api/router'
+
 import { filterAsyncRoutes } from "@/utils/handleRoutes";
 import { routesStoreStateType } from "@/types";
+import routes from '@/router/routes'
 
 export default defineStore("routes", {
     state: (): routesStoreStateType => ({
-        _routes: [],
+        _routes: routes,
         _partialRoutes: [],
     }),
     getters: {

@@ -1,10 +1,10 @@
 <template>
   <el-menu-item :index="handlePath(routeChildren.path)" @click="handleLink">
-    <!-- <vab-icon
+     <vab-icon
       v-if="routeChildren.meta.icon"
       :icon="['fas', routeChildren.meta.icon]"
       class="vab-fas-icon"
-    /> -->
+    /> 
     <span>{{ routeChildren.meta.title }}</span>
     <el-tag
       v-if="routeChildren.meta && routeChildren.meta.badge"

@@ -5,16 +5,16 @@
     :popper-append-to-body="false"
   >
     <template slot="title">
-      <!-- <vab-icon
+       <vab-icon
         v-if="item.meta && item.meta.icon"
         :icon="['fas', item.meta.icon]"
         class="vab-fas-icon"
-      /> -->
-      <!-- <vab-remix-icon
+      /> 
+       <vab-remix-icon
         v-if="item.meta && item.meta.remixIcon"
         :icon-class="item.meta.remixIcon"
         class="vab-remix-icon"
-      /> -->
+      /> 
       <span>{{ item.meta.title }}</span>
     </template>
     <slot />
