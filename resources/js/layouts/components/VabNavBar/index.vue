@@ -18,12 +18,12 @@
           <vab-full-screen-bar @refresh="refreshRoute" />
           <!-- <vab-theme-bar class="hidden-xs-only" /> -->
           <vab-icon
-            title="重载所有路由"
+            title=""
             :pulse="pulse"
-            :icon="['fas', 'redo']"
+            :icon="['ri', 'refresh-line']"
             @click="refreshRoute"
           />
-          <vab-avatar />x
+          <vab-avatar />
         </div>
       </el-col>
     </el-row>

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { isExternal } from "@/utils/validate";
-import path from "path";
+// import path from "path";
 
 export default {
   name: "VabMenuItem",
@@ -48,7 +48,8 @@ export default {
       if (isExternal(this.fullPath)) {
         return this.fullPath;
       }
-      return path.resolve(this.fullPath, routePath);
+      // return path.resolve(this.fullPath, routePath);
+      return routePath;
     },
     handleLink() {
       const routePath = this.routeChildren.path;
@@ -60,10 +61,11 @@ export default {
         } else if (isExternal(this.fullPath)) {
           window.open(this.fullPath);
         } else if (
-          this.$route.path !== path.resolve(this.fullPath, routePath)
+          this.$route.path !== routePath
+
         ) {
           let routeData = this.$router.resolve(
-            path.resolve(this.fullPath, routePath)
+            routePath
           );
           window.open(routeData.href);
         }
@@ -73,9 +75,9 @@ export default {
         } else if (isExternal(this.fullPath)) {
           window.location.href = this.fullPath;
         } else if (
-          this.$route.path !== path.resolve(this.fullPath, routePath)
+          this.$route.path !== routePath
         ) {
-          this.$router.push(path.resolve(this.fullPath, routePath));
+          this.$router.push(routePath);
         }
       }
     },

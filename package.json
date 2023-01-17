@@ -35,6 +35,7 @@
         "nprogress": "^0.2.0",
         "pinia": "^2.0.28",
         "qs": "^6.11.0",
+        "remixicon": "^2.5.0",
         "screenfull": "^5.2.0",
         "sortablejs": "^1.15.0",
         "vab-icon": "^0.0.1",

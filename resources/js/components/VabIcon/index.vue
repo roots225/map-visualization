@@ -1,7 +1,7 @@
 <template>
     <span>
         <i :class="iconClass"></i>
-        <span>{{ title }}</span>
+        <span v-if="title">{{ title }}</span>
     </span>
   </template>
   <script lang="ts">

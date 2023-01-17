@@ -5,7 +5,7 @@ import { getAccessToken } from "@/utils/accessToken";
 export default defineStore("user", {
     state: (): userStoreStateType => ({
         _accessToken: getAccessToken(),
-        _username: "",
+        _username: "admin",
         _avatar: "",
         _permissions: [],
     }),

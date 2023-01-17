@@ -3,8 +3,12 @@ import { createApp } from "vue";
 import store from "./store";
 import router from "./router";
 import ElementPlus from "element-plus";
-import "element-plus/theme-chalk/src/index.scss";
+
 import App from "./App.vue";
+import "element-plus/theme-chalk/src/index.scss";
+
+import 'remixicon/fonts/remixicon.css'
+
 import VabTopBar from "@/components/VabTopBar/index.vue";
 import VabTabsBar from "@/components/VabTabsBar/index.vue";
 import VabSideBar from "@/components/VabSideBar/index.vue";

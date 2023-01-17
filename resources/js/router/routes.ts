@@ -1,17 +1,22 @@
 import { RouteRecord } from "vue-router";
 // import AppLayout from "@/layouts/app-layout.vue";
-import AppLayout from "@/layouts/index.vue";
+import Layout from "@/layouts/index.vue";
 
 const routes: RouteRecord[] = [
     {
         path: "/",
-        component: AppLayout,
+        component: Layout,
         redirect: "/home",
         children: [
             {
                 path: "/home",
                 name: "home",
                 component: () => import("@/pages/home-page.vue"),
+            },
+            {
+                path: "/import",
+                name: "import",
+                component: () => import("@/pages/import-page.vue"),
             },
         ],
     },

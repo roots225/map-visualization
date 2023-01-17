@@ -23,6 +23,7 @@ specifiers:
   pinia: ^2.0.28
   postcss: ^8.1.14
   qs: ^6.11.0
+  remixicon: ^2.5.0
   sass: ^1.57.1
   screenfull: ^5.2.0
   sortablejs: ^1.15.0
@@ -61,6 +62,7 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.28_prq2uz4lho2pwp6irk4cfkrxwu
   qs: 6.11.0
+  remixicon: 2.5.0
   screenfull: 5.2.0
   sortablejs: 1.15.0
   vab-icon: 0.0.1
@@ -1945,6 +1947,10 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.1.4
       functions-have-names: 1.2.3
+    dev: false
+
+  /remixicon/2.5.0:
+    resolution: {integrity: sha512-q54ra2QutYDZpuSnFjmeagmEiN9IMo56/zz5dDNitzKD23oFRw77cWo4TsrAdmdkPiEn8mxlrTqxnkujDbEGww==}
     dev: false
 
   /resize-detector/0.3.0:

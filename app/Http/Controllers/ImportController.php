@@ -15,6 +15,8 @@ class ImportController extends Controller
             'file' => 'Le fichier doit être de type tableur'
         ]);
 
+        dd($request);
+
         $extension = $request->file('data')->extension();
         $filename = "coordonnees-". date('dHYmis') . ".$extension";
         $path = $request->file('data')->storeAs('datas', $filename, 'public');
