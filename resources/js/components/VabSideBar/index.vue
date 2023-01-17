@@ -41,7 +41,6 @@ export default {
       return this.settingsStore.collapse;
     },
     routes() {
-      console.log(this.routesStore.routes)
       return this.routesStore.routes;
     },
     defaultOpens() {

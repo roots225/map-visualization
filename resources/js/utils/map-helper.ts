@@ -1,7 +1,10 @@
+import Merchant from "@/models/Merchant";
 import mapboxgl from "mapbox-gl";
 
 export class MapHelper {
     public map: any;
+    public merchants: Merchant[] = [];
+    public bounds: any[] = [];
 
     constructor(container: any, accessToken: string) {
         this.map = new mapboxgl.Map({
@@ -14,8 +17,21 @@ export class MapHelper {
         });
     }
 
+    setPoints(data: Merchant[]) {
+        this.merchants = data;
+    }
+
     getMap() {
         return this.map;
+    }
+
+    getBoundsFormMerchants() {
+        return this.merchants.map((item) => item.toArrayCoordinate());
+    }
+
+    fitBounds() {
+        if (this.getBoundsFormMerchants().length > 0)
+            this.map.fitBounds(this.getBoundsFormMerchants());
     }
 
     addMarker(point: any, options?: { color?: string; rotation?: number }) {
@@ -26,9 +42,5 @@ export class MapHelper {
 
     private toPointArray(point: any): number[] {
         return [point.lng, point.lat];
-    }
-
-    private toPointString(point: any): string {
-        return `${point.lng},${point.lat}`;
     }
 }

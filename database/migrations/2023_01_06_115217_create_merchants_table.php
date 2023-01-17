@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('city');
-            $table->string('town');
-            $table->string('complete_address');
+            $table->string('hp2');
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('complete_address')->nullable();
             $table->string('lat');
             $table->string('lng');
             $table->timestamps();

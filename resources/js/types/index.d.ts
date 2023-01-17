@@ -20,6 +20,10 @@ export interface routesStoreStateType {
     _partialRoutes: RouteRecord[];
 }
 
+export interface merchantsStoreStateType {
+    merchants: Merchant[];
+}
+
 export type themeType = {
     header: string;
     layout: string;

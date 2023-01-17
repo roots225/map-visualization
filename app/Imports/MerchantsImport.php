@@ -15,17 +15,23 @@ class MerchantsImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
+        if (!$row['latitude'] && !$row['longitude']) {
+            return;
+        }
+        
         return new Merchant([
-            'name' => $row['address'],
-            'address' => $row['address'],
-            'city' => $row['address'],
-            'town' => $row['address'],
-            'complete_address' => $row['address'],
+            'hp2' => $row['hp2'],
+            'address' => $row['adresses_du_patrimoine'],
+            'city' => $row['ville'],
+            'postal_code' => $row['code_postal'],
+            'complete_address' => $row['adresse_totale'],
+            'lat' => $row['latitude'],
+            'lng' => $row['longitude'],
         ]);
     }
 
     public function headingRow(): int
     {
-        return 2;
+        return 1;
     }
 }

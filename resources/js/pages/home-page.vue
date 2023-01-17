@@ -1,35 +1,48 @@
 <template>
   <div>
     <h1>Welcome to map visualization</h1>
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="mb-3">
+      <el-col :span="24" style="margin: 10px 0">
+        <el-card class="box-card">
+          <template #header>
+            <div class="card-header">
+              <span>Route disponible</span>
+            </div>
+          </template>
+          <div v-for="route in routes" :key="route.distance" class="text item">
+            {{ "Distance: " + route.distance * 0.001 }} Km
+          </div>
+        </el-card>
+      </el-col>
+
       <el-col :span="6">
         <el-select
-          v-model="fromPoint"
+          v-model="fromID"
           class="m-2"
           placeholder="Départ"
           size="large"
           filterable
         >
           <el-option
-            v-for="item in points"
+            v-for="item in merchants"
             :key="item.id"
-            :label="item.name"
+            :label="item.hp2"
             :value="item.id"
           />
         </el-select>
       </el-col>
       <el-col :span="6">
         <el-select
-          v-model="toPoint"
+          v-model="toID"
           class="m-2"
           placeholder="Arrivé"
           size="large"
           filterable
         >
           <el-option
-            v-for="item in points"
+            v-for="item in merchants"
             :key="item.id"
-            :label="item.name"
+            :label="item.hp2"
             :value="item.id"
           />
         </el-select>
@@ -37,24 +50,16 @@
       <el-col :span="6">
         <el-button
           type="primary"
+          size="large"
           :loading="loading"
-          @click="
-            () =>
-              fromPoint != null && toPoint != null
-                ? distanceMatrix(fromPoint, toPoint)
-                : null
-          "
+          @click="distanceMatrix()"
           >Trouver la distance</el-button
         >
       </el-col>
     </el-row>
-    <div v-for="_route in _routes" :key="_route.distance">
-      <label for="">{{_route.weight_name}}</label> : 
-      <span>{{_route.distance * 0.001}} Km</span>
-    </div>
-    <div class="distance-show">{{ foundDistance }}</div>
+
     <div class="map-container">
-      <div ref="map-container"></div>
+      <div ref="mapContainer"></div>
     </div>
   </div>
 </template>
@@ -63,64 +68,77 @@ import { markerPoint } from "@/types";
 import { MapHelper } from "@/utils/map-helper";
 import { Console } from "console";
 import mapboxgl from "mapbox-gl";
-import { Ref, ref } from "vue";
+import {
+  Ref,
+  ComputedRef,
+  ref,
+  onMounted,
+  computed,
+  nextTick,
+  onBeforeMount,
+  onUpdated,
+} from "vue";
+import useMerchantsStore from "@/store/modules/merchants";
+import Merchant from "@/models/Merchant";
+import { ElNotification } from "element-plus";
 
 export default {
   name: "map-widget",
   setup() {
-    const container = ref("map-container");
+    const mapContainer = ref(null);
     const client: Ref<any> = ref(null);
     const map: Ref<any> = ref(null);
     let loading: Ref<boolean> = ref(false);
-    let _routes: Ref<any[]> = ref([]);
+    let routes: Ref<any[]> = ref([]);
+    const merchantsStore = useMerchantsStore();
+    // const merchants: Ref<Merchant[]> = ref(merchantsStore.getMerchants);
+    const merchants: ComputedRef<Merchant[]> = computed(
+      () => merchantsStore.getMerchants
+    );
 
     const accessToken = ref(
       "pk.eyJ1Ijoicm9vdHMyMjUiLCJhIjoiY2psNmd2YzdyMHowaTN4cGJtMDlleHM1cSJ9.1VYqihb6zztfoxRct-F0Og"
     );
-    const points = ref([
-      {
-        id: 1,
-        name: "point 1",
-        lat: 5.3701077,
-        lng: -3.9977695,
-      },
-      {
-        id: 2,
-        name: "point 2",
-        lat: 5.3154868,
-        lng: -4.0172199,
-      },
-      {
-        id: 3,
-        name: "point 3",
-        lat: 48.822092,
-        lng: 2.125294,
-        color: 'green'
-      },
-      {
-        id: 4,
-        name: "point 4",
-        lat: 48.915274,
-        lng: 2.293334,
-        color: 'red'
-      },
-    ]);
 
-    let fromPoint: Ref<markerPoint> | Ref<null> = ref(null);
-    let toPoint: Ref<markerPoint> | Ref<null> = ref(null);
-    let foundDistance = ref(0);
+    onBeforeMount(() => {
+      merchantsStore.fetchMerchants();
+    });
 
-    async function distanceMatrix(
-      point1: number,
-      point2: number
-    ): Promise<void> {
-      console.log(point1, point2);
-      const position = toPointString(
-        points.value.find((item) => item.id === point1)
-      );
-      const destination = toPointString(
-        points.value.find((item) => item.id === point2)
-      );
+    onMounted(() => {
+      initMap();
+    });
+
+    onUpdated(() => {
+      initMap();
+    });
+
+    let fromID: Ref<number | null> = ref(null);
+    let toID: Ref<number | null> = ref(null);
+
+    async function initMap() {
+      await nextTick();
+      /// Add marker on map
+      const mapHelper = new MapHelper(mapContainer.value, accessToken.value);
+      merchants.value.forEach((point, index) => {
+        const option: any = point.color ? { color: point.color } : {};
+        return mapHelper.addMarker(point, option);
+      });
+      mapHelper.setPoints(merchants.value);
+      mapHelper.fitBounds();
+      map.value = mapHelper.getMap();
+    }
+
+    async function distanceMatrix(): Promise<void> {
+      // Display loader on button
+      loading.value = true;
+
+      const from = merchants.value.find((item) => item.id === fromID.value)!;
+      const to = merchants.value.find((item) => item.id === toID.value)!;
+      if (!from || !to) {
+        ElNotification.error("coordonnées introuvable");
+        loading.value = false;
+        return;
+      }
 
       const profiles = [
         "mapbox/driving-traffic",
@@ -130,22 +148,57 @@ export default {
       ];
       const selected = profiles[3];
 
-      // Show loader
-      loading.value = true;
+      const bounds = [from, to];
+      map.value.setMaxBounds(bounds);
+
       try {
         const res = await fetch(
-          `https://api.mapbox.com/directions/v5/${selected}/${position};${destination}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${accessToken.value}`
+          `https://api.mapbox.com/directions/v5/${selected}/${from.toPointString()};${to.toPointString()}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${
+            accessToken.value
+          }`
         );
 
         const data = await res.json();
         if (data.code === "Ok") {
           const { destinations, routes } = data;
-          if (destinations) {
-            const destination = destinations[0];
-            foundDistance.value = destination.distance;
-          }
+
           if (routes) {
-            _routes.value = routes;
+            routes.value = routes;
+            const data = routes[0];
+            const route = data.geometry.coordinates;
+            const geojson = {
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "LineString",
+                coordinates: route,
+              },
+            };
+
+            // if the route already exists on the map, we'll reset it using setData
+            if (map.value.getSource("route")) {
+              map.value.getSource("route").setData(geojson);
+            }
+            // otherwise, we'll make a new request
+            else {
+              map.value.addLayer({
+                id: "route",
+                type: "line",
+                source: {
+                  type: "geojson",
+                  data: geojson,
+                },
+                layout: {
+                  "line-join": "round",
+                  "line-cap": "round",
+                },
+                paint: {
+                  "line-color": "#3887be",
+                  "line-width": 5,
+                  "line-opacity": 0.75,
+                },
+              });
+            }
           }
         }
       } catch (err) {
@@ -156,36 +209,18 @@ export default {
       loading.value = false;
     }
 
-    function toPointString(point: any): string {
-      return `${point.lng},${point.lat}`;
-    }
-
     return {
-      container,
+      mapContainer,
       client,
       map,
-      _routes,
+      routes,
       accessToken,
-      points,
-      fromPoint,
-      toPoint,
+      fromID,
+      toID,
       loading,
-      foundDistance,
       distanceMatrix,
+      merchants,
     };
-  },
-  mounted() {
-    const mapHelper = new MapHelper(
-      this.$refs["map-container"],
-      this.accessToken
-    );
-
-    this.map = mapHelper.getMap();
-
-    this.points.forEach((point, index) => {
-      const option: any = point.color ? { color: point.color } : {};
-      return mapHelper.addMarker(point, option);
-    });
   },
 };
 </script>
@@ -204,5 +239,8 @@ export default {
     min-height: 100%;
     width: 100%;
   }
+}
+.mb-3 {
+  margin-bottom: 3em;
 }
 </style>

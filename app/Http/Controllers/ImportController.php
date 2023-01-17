@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Imports\MerchantsImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Merchant;
+
 class ImportController extends Controller
 {
     public function store(Request $request)
@@ -15,16 +19,17 @@ class ImportController extends Controller
             'file' => 'Le fichier doit être de type tableur'
         ]);
 
-        dd($request);
-
         $extension = $request->file('data')->extension();
         $filename = "coordonnees-". date('dHYmis') . ".$extension";
-        $path = $request->file('data')->storeAs('datas', $filename, 'public');
-        
+        $path = $request->file('data')->store('file-data');
+
+        Excel::import(new MerchantsImport, $path);
+
+        $datas = Merchant::all();
 
         return response()->json([
             'msg' => 'Données importés avec succès',
-            'data' => $response,
+            'data' => $datas,
         ]);
     }
 }

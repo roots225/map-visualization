@@ -1,38 +1,72 @@
 <template>
-    <el-upload
-      ref="upload"
-      class="upload-demo"
-      action="http://localhost:8000/api/import"
-      :limit="1"
-      :on-exceed="handleExceed"
-      :auto-upload="false"
-      :headers="{'Content-Type': 'application/json', 'accet': 'application/json'}"
-    >
-      <template #trigger>
-        <el-button type="primary">Choisir un fichier</el-button>
-      </template>
-      <el-button class="ml-3" type="success" @click="submitUpload">
-        Charger
-      </el-button>
-    </el-upload>
-  </template>
-  
-  <script setup lang="ts">
-  import { ref } from 'vue'
-  import { genFileId } from 'element-plus'
-  import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
-  
-  const upload = ref<UploadInstance>()
-  
-  const handleExceed: UploadProps['onExceed'] = (files) => {
-    upload.value!.clearFiles()
-    const file = files[0] as UploadRawFile
-    file.uid = genFileId()
-    upload.value!.handleStart(file)
+  <el-upload
+    ref="upload"
+    drag
+    action="http://localhost:8000/api/import"
+    :limit="1"
+    :on-exceed="handleExceed"
+    :headers="{
+      accept: 'application/json',
+    }"
+    :auto-upload="false"
+    name="data"
+    :on-success="handleSuccess"
+    :on-error="handleError"
+  >
+    <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+    <template #trigger>
+      <div class="el-upload__text">Glisser deposer votre fichier ici</div>
+    </template>
+
+    <template #tip>
+      <div class="el-upload__tip">Fichiers de type xls/xlsx</div>
+    </template>
+    <div class="text center" style="text-align: center">
+      <el-button type="primary" size="large" @click="submitUpload"
+        >Charger le fichier</el-button
+      >
+    </div>
+  </el-upload>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import { genFileId, ElNotification } from "element-plus";
+import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
+
+const upload = ref<UploadInstance>();
+
+const handleExceed: UploadProps["onExceed"] = (files) => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  file.uid = genFileId();
+  upload.value!.handleStart(file);
+};
+
+const submitUpload = () => {
+  upload.value!.submit();
+};
+
+const handleError = (error: any) => {
+  let message = "";
+  try {
+    const res = JSON.parse(error.message);
+    message = res.message;
+  } catch (e) {
+    message = "Erreur inconnue";
   }
-  
-  const submitUpload = () => {
-    upload.value!.submit()
-  }
-  </script>
-  
+  ElNotification({
+    title: "Erreur",
+    message,
+    type: "error",
+  });
+};
+
+const handleSuccess = () => {
+  ElNotification({
+    title: "Succes",
+    message: "Fichier charger avec succes",
+    type: "success",
+  });
+};
+</script>

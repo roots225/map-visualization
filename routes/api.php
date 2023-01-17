@@ -18,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::get()
+Route::get('/merchants', [App\Http\Controllers\MerchantController::class, 'index']);
 Route::post('/import', [App\Http\Controllers\ImportController::class, 'store']);
