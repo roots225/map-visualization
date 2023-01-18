@@ -11,7 +11,7 @@ export default class Merchant {
         this.lat = options.lat;
         this.lng = options.lng;
         this.hp2 = options.hp2;
-        this.color = this.colors[Math.floor(Math.random() * 4)];
+        this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
     }
 
     static fromObject(data: object) {

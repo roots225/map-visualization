@@ -18,6 +18,11 @@ const routes: RouteRecord[] = [
                 name: "import",
                 component: () => import("@/pages/import-page.vue"),
             },
+            {
+                path: "/merchants",
+                name: "merchants",
+                component: () => import("@/pages/merchant-page.vue"),
+            },
         ],
     },
 ];

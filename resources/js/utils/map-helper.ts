@@ -34,6 +34,14 @@ export class MapHelper {
             this.map.fitBounds(this.getBoundsFormMerchants());
     }
 
+    resetMarker(){
+        this.merchants.forEach((merchant) => {
+            new mapboxgl.Marker({ color: merchant.color })
+            .setLngLat(merchant.toArrayCoordinate())
+            .addTo(this.map);
+        })
+    }
+
     addMarker(point: any, options?: { color?: string; rotation?: number }) {
         return new mapboxgl.Marker(options ?? {})
             .setLngLat(this.toPointArray(point))

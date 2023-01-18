@@ -9,9 +9,12 @@
               <span>Route disponible</span>
             </div>
           </template>
-          <div v-for="route in routes" :key="route.distance" class="text item">
-            {{ "Distance: " + route.distance * 0.001 }} Km
+          <div class="text-black">
+            <div v-for="route in routs" :key="route.distance" class="text item">
+            {{ "Distance: " + Number.parseFloat((route.distance * 0.001).toString()).toFixed(2) }} Km
           </div>
+          </div>
+          
         </el-card>
       </el-col>
 
@@ -89,12 +92,12 @@ export default {
     const client: Ref<any> = ref(null);
     const map: Ref<any> = ref(null);
     let loading: Ref<boolean> = ref(false);
-    let routes: Ref<any[]> = ref([]);
+    let routs: Ref<any[]> = ref([]);
     const merchantsStore = useMerchantsStore();
-    // const merchants: Ref<Merchant[]> = ref(merchantsStore.getMerchants);
     const merchants: ComputedRef<Merchant[]> = computed(
       () => merchantsStore.getMerchants
     );
+    const mapHelper: Ref<MapHelper|null> = ref(null)
 
     const accessToken = ref(
       "pk.eyJ1Ijoicm9vdHMyMjUiLCJhIjoiY2psNmd2YzdyMHowaTN4cGJtMDlleHM1cSJ9.1VYqihb6zztfoxRct-F0Og"
@@ -118,14 +121,14 @@ export default {
     async function initMap() {
       await nextTick();
       /// Add marker on map
-      const mapHelper = new MapHelper(mapContainer.value, accessToken.value);
+       mapHelper.value = new MapHelper(mapContainer.value, accessToken.value);
       merchants.value.forEach((point, index) => {
         const option: any = point.color ? { color: point.color } : {};
-        return mapHelper.addMarker(point, option);
+        return mapHelper.value?.addMarker(point, option);
       });
-      mapHelper.setPoints(merchants.value);
-      mapHelper.fitBounds();
-      map.value = mapHelper.getMap();
+      mapHelper.value.setPoints(merchants.value);
+      mapHelper.value.fitBounds();
+      map.value = mapHelper.value.getMap();
     }
 
     async function distanceMatrix(): Promise<void> {
@@ -149,7 +152,7 @@ export default {
       const selected = profiles[3];
 
       const bounds = [from, to];
-      map.value.setMaxBounds(bounds);
+      // map.value.setMaxBounds(bounds);
 
       try {
         const res = await fetch(
@@ -163,7 +166,7 @@ export default {
           const { destinations, routes } = data;
 
           if (routes) {
-            routes.value = routes;
+            routs.value = routes;
             const data = routes[0];
             const route = data.geometry.coordinates;
             const geojson = {
@@ -199,6 +202,8 @@ export default {
                 },
               });
             }
+
+            mapHelper.value?.resetMarker();
           }
         }
       } catch (err) {
@@ -213,7 +218,7 @@ export default {
       mapContainer,
       client,
       map,
-      routes,
+      routs,
       accessToken,
       fromID,
       toID,
@@ -242,5 +247,8 @@ export default {
 }
 .mb-3 {
   margin-bottom: 3em;
+}
+.text-black {
+  color: black;
 }
 </style>
