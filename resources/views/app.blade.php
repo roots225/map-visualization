@@ -13,6 +13,6 @@
     </head>
     <body class="antialiased">
         <div id="app"></div>
-        @vite(['resources/js/main.ts'])
+        @vite(['resources/src/main.ts'])
     </body>
 </html>
