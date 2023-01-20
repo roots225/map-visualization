@@ -146,7 +146,8 @@ export default {
     sticky: 'Sticky',
     /// Customs locales
     import: 'Importation',
-    map: 'Carte'
+    map: 'Carte',
+    merchants: 'Points'
   },
   permission: {
     hasPermission: 'Please set the operation permission value'
@@ -185,7 +186,9 @@ export default {
     thursday: 'Thursday',
     friday: 'Friday',
     saturday: 'Saturday',
-    sunday: 'Sunday'
+    sunday: 'Sunday',
+    /// Custom add
+    point: 'Point'
   },
   workplace: {
     goodMorning: 'Good morning',

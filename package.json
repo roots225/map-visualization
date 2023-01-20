@@ -27,6 +27,7 @@
     "analysis": "windicss-analysis"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.0.10",
     "@iconify/iconify": "^3.0.1",
     "@vueuse/core": "^9.10.0",
     "@wangeditor/editor": "^5.1.23",

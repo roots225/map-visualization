@@ -16,6 +16,7 @@ class MerchantController extends Controller
     {
         $model = Merchant::all();
         return response()->json([
+            'code' => 'Ok',
             'data' => $model
         ]);
     }

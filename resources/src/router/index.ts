@@ -77,15 +77,6 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
           affix: true
         }
       }
-      // {
-      //   path: 'workplace',
-      //   component: () => import('@/views/Dashboard/Workplace.vue'),
-      //   name: 'Workplace',
-      //   meta: {
-      //     title: t('router.workplace'),
-      //     noCache: true
-      //   }
-      // }
     ]
   },
   {
@@ -122,6 +113,24 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
       }
     ]
   },
+  {
+    path: '/merchants',
+    component: Layout,
+    meta: {},
+    name: 'Merchants',
+    children: [
+      {
+        path: 'index',
+        name: 'ListMerchants',
+        meta: {
+          title: t('router.merchants'),
+          icon: 'clarity:document-solid'
+        },
+        component: () => import('@/views/Merchants/Index.vue')
+      }
+    ]
+  }
+  /*
   {
     path: '/guide',
     component: Layout,
@@ -531,7 +540,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         }
       }
     ]
-  }
+  }*/
   // {
   //   path: '/authorization',
   //   component: Layout,

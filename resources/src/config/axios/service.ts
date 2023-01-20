@@ -16,13 +16,13 @@ const { result_code, base_url } = config
 
 export const PATH_URL = base_url[import.meta.env.VITE_API_BASEPATH]
 
-// 创建axios实例
+// Axios instance
 const service: AxiosInstance = axios.create({
-  baseURL: PATH_URL, // api 的 base_url
-  timeout: config.request_timeout // 请求超时时间
+  baseURL: PATH_URL, // api base_url
+  timeout: config.request_timeout //
 })
 
-// request拦截器
+// request
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     if (
@@ -33,7 +33,6 @@ service.interceptors.request.use(
       config.data = qs.stringify(config.data)
     }
     // ;(config.headers as AxiosRequestHeaders)['Token'] = 'test test'
-    // get参数编码
     if (config.method === 'get' && config.params) {
       let url = config.url as string
       url += '?'
@@ -56,11 +55,11 @@ service.interceptors.request.use(
   }
 )
 
-// response 拦截器
+// response
 service.interceptors.response.use(
   (response: AxiosResponse<any>) => {
     if (response.config.responseType === 'blob') {
-      // 如果是文件流，直接过
+      //
       return response
     } else if (response.data.code === result_code) {
       return response.data
