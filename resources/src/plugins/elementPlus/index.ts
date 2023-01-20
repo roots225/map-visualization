@@ -2,6 +2,7 @@ import type { App } from 'vue'
 
 // 需要全局引入一些组件，如ElScrollbar，不然一些下拉项样式有问题
 import { ElLoading, ElScrollbar } from 'element-plus'
+// import { MglMap, MglNavigationControl, MglGeolocateControl } from "vue-mapbox";
 
 const plugins = [ElLoading]
 

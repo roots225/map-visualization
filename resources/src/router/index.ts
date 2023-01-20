@@ -89,6 +89,23 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
     ]
   },
   {
+    path: '/map',
+    component: Layout,
+    meta: {},
+    name: 'MapVisualization',
+    children: [
+      {
+        path: 'index',
+        name: 'MapIndex',
+        meta: {
+          title: t('router.map'),
+          icon: 'clarity:document-solid'
+        },
+        component: () => import('@/views/Map/Index.vue')
+      }
+    ]
+  },
+  {
     path: '/data-import',
     component: Layout,
     meta: {},
