@@ -33,6 +33,7 @@ class MerchantsImport implements ToModel,WithHeadingRow
             'complete_address' => $row['adresse_totale'],
             'lat' => $row['latitude'],
             'lng' => $row['longitude'],
+            'group_name' => $row['noms_groupes_immobilier'] ?? 'N/A',
         ]);
     }
 

@@ -21,7 +21,7 @@ const { start, done } = useNProgress()
 
 const { loadStart, loadDone } = usePageLoading()
 
-const whiteList = ['/login'] // 不重定向白名单
+const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
   start()
@@ -36,7 +36,6 @@ router.beforeEach(async (to, from, next) => {
       }
 
       if (!dictStore.getIsSetDict) {
-        // 获取所有字典
         const res = await getDictApi()
         if (res) {
           dictStore.setDictObj(res.data)
@@ -44,11 +43,9 @@ router.beforeEach(async (to, from, next) => {
         }
       }
 
-      // 开发者可根据实际情况进行修改
       const roleRouters = wsCache.get('roleRouters') || []
       const userInfo = wsCache.get(appStore.getUserInfo)
 
-      // 是否使用动态路由
       if (appStore.getDynamicRouter) {
         userInfo.role === 'admin'
           ? await permissionStore.generateRoutes('admin', roleRouters as AppCustomRouteRecordRaw[])
@@ -58,7 +55,7 @@ router.beforeEach(async (to, from, next) => {
       }
 
       permissionStore.getAddRouters.forEach((route) => {
-        router.addRoute(route as unknown as RouteRecordRaw) // 动态添加可访问路由表
+        router.addRoute(route as unknown as RouteRecordRaw)
       })
       const redirectPath = from.query.redirect || to.path
       const redirect = decodeURIComponent(redirectPath as string)
@@ -70,13 +67,13 @@ router.beforeEach(async (to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
+      next(`/login?redirect=${to.path}`)
     }
   }
 })
 
 router.afterEach((to) => {
   useTitle(to?.meta?.title as string)
-  done() // 结束Progress
+  done()
   loadDone()
 })

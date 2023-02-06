@@ -14,15 +14,7 @@ import { useI18n } from '@/hooks/web/useI18n'
 import { useMerchantStore } from '@/store/modules/merchant'
 import { computed, Ref, ref } from 'vue'
 import { Table } from '@/components/Table'
-import {
-  ElSkeleton,
-  ElRow,
-  ElCard,
-  ElCol,
-  ElSelect,
-  ElOption,
-  ElButton
-} from 'element-plus'
+import { ElSkeleton, ElRow, ElCard, ElCol, ElSelect, ElOption, ElButton } from 'element-plus'
 
 const { t } = useI18n()
 
@@ -58,7 +50,10 @@ export default {
         field: 'hp2',
         label: 'HP2'
       },
-      ,
+      {
+        field: 'groupName',
+        label: 'Nom groupe'
+      },
       {
         field: 'address',
         label: 'Adresse'
@@ -75,6 +70,7 @@ export default {
         field: 'lat',
         label: 'Latitude'
       },
+
       {
         field: 'action',
         label: 'Action'

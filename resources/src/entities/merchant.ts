@@ -7,6 +7,7 @@ export class Merchant {
   public address?: string
   public postalCode?: string
   public colors: string[] = ['#5DFDCB', '#7CC6FE', '#F4FAFF', '#8789C0']
+  groupName?: string
 
   constructor(options: any) {
     this.id = options.id
@@ -16,10 +17,15 @@ export class Merchant {
     this.color = this.colors[Math.floor(Math.random() * this.colors.length)]
     this.postalCode = options.postal_code
     this.address = options.address
+    this.groupName = options.group_name
   }
 
   static fromObject(data: object) {
     return new Merchant(data)
+  }
+
+  get getLabel() {
+    return this.groupName ? `${this.groupName} (${this.hp2})` : this.hp2
   }
 
   toArrayCoordinate(): number[] {
