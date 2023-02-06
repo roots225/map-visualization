@@ -18,6 +18,12 @@ class MerchantsImport implements ToModel,WithHeadingRow
         if (!$row['latitude'] && !$row['longitude']) {
             return;
         }
+
+        /// Check if exist
+        $model = Merchant::where('hp2', $row['hp2'])->first();
+        if ($model) {
+            return;
+        }
         
         return new Merchant([
             'hp2' => $row['hp2'],

@@ -4,7 +4,7 @@ import { Form } from '@/components/Form'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton, ElCheckbox, ElLink } from 'element-plus'
 import { useForm } from '@/hooks/web/useForm'
-import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
+import { getTestRoleApi, getAdminRoleApi } from '@/api/login'
 import { useCache } from '@/hooks/web/useCache'
 import { useAppStore } from '@/store/modules/app'
 import { usePermissionStore } from '@/store/modules/permission'
@@ -81,15 +81,11 @@ const schema = reactive<FormSchema[]>([
   }
 ])
 
-const iconSize = 30
-
 const remember = ref(false)
 
 const { register, elFormRef, methods } = useForm()
 
 const loading = ref(false)
-
-const iconColor = '#999'
 
 const redirect = ref<string>('')
 

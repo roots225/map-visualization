@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ContentWrap } from '@/components/ContentWrap'
+// import { PATH_URL } from '@/config/axios/service'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElUpload, ElIcon, ElButton, ElNotification } from 'element-plus'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
@@ -8,6 +9,8 @@ import { ref } from 'vue'
 const { t } = useI18n()
 
 const upload = ref<UploadInstance>()
+let uploadURL = ref('/api/import')
+// uploadURL.value = uploadURL.value + '/api/import'
 
 const handleExceed: UploadProps['onExceed'] = (files) => {
   upload.value!.clearFiles()
@@ -49,7 +52,7 @@ const handleSuccess = () => {
     <el-upload
       ref="upload"
       drag
-      action="http://localhost:8000/api/import"
+      :action="uploadURL"
       :limit="1"
       :on-exceed="handleExceed"
       :headers="{

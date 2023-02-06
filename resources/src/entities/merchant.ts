@@ -6,7 +6,7 @@ export class Merchant {
   public color: string
   public address?: string
   public postalCode?: string
-  private colors: string[] = ['#5DFDCB', '#7CC6FE', '#F4FAFF', '#8789C0']
+  public colors: string[] = ['#5DFDCB', '#7CC6FE', '#F4FAFF', '#8789C0']
 
   constructor(options: any) {
     this.id = options.id

@@ -40,7 +40,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       Vue(),
       VueJsx(),
       WindiCSS(),
-      progress(),
+      // progress(),
       createStyleImportPlugin({
         resolves: [ElementPlusResolve()],
         libs: [
@@ -105,7 +105,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           replacement: `${pathResolve('resources/src')}/`
         }
       ]
-    },
+    },/*
     build: {
       minify: 'terser',
       outDir: env.VITE_OUT_DIR || 'dist',
@@ -117,7 +117,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           drop_console: env.VITE_DROP_CONSOLE === 'true'
         }
       }
-    },
+    },*/
     server: {
       port: 4000,
       proxy: {

@@ -41,8 +41,11 @@
           :mapStyle="mapStyle"
           :flyToOptions="flyToOptions"
           @loaded="handleLoaded"
+          :center="center"
+          :zoom="zoom"
         >
           <mapbox-marker
+            v-if="loaded"
             v-for="merchant in merchants"
             :key="merchant.id"
             :lngLat="[merchant.lng, merchant.lat]"
@@ -99,6 +102,7 @@ export default {
   },
   setup() {
     const loading = ref(true)
+    const loaded = ref(false)
     const accessToken = ref(
       'pk.eyJ1Ijoicm9vdHMyMjUiLCJhIjoiY2psNmd2YzdyMHowaTN4cGJtMDlleHM1cSJ9.1VYqihb6zztfoxRct-F0Og'
     )
@@ -117,6 +121,8 @@ export default {
     let toID = ref(0)
 
     let mapInstance: any = ref(null)
+    let zoom = ref(3)
+    let center = ref([-6.9304543, 45.8660209])
 
     const getAllApi = async () => {
       await Promise.all([merchantStore.fetchMerchants()])
@@ -125,12 +131,15 @@ export default {
 
     const handleLoaded = (map: any) => {
       mapInstance.value = map
-      console.log(mapInstance)
+      loaded.value = true
+      const merchant = merchants[0]
+      center.value = [merchant.lng, merchant.lat]
+      // flyToOptions.value = { maxDuration: 1000, speed: 1.2, center: [merchant.lng, merchant.lat] }
     }
 
     async function distanceMatrix(): Promise<void> {
       // Display loader on button
-      loading.value = true
+      // loading.value = true
 
       const from = merchants.value.find((item) => item.id === fromID.value)!
       const to = merchants.value.find((item) => item.id === toID.value)!
@@ -164,23 +173,27 @@ export default {
 
           if (routes) {
             foundRoutes.value = [routes[0]]
-            const data = routes[0]
-            const route = data.geometry.coordinates
-            const geojson = {
-              type: 'Feature',
-              properties: {},
-              geometry: {
-                type: 'LineString',
-                coordinates: route
-              }
-            }
+            // const data = routes[0]
+            // const route = data.geometry.coordinates
+            // const geojson = {
+            //   type: 'Feature',
+            //   properties: {},
+            //   geometry: {
+            //     type: 'LineString',
+            //     coordinates: route
+            //   }
+            // }
 
             flyToOptions.value = { maxDuration: 1000, speed: 1.2, center: [from.lng, from.lat] }
+            
 
             if (mapInstance.value == null) {
               loading.value = false
               return
             }
+
+            zoom.value = 1;
+            center.value = [from.lng, from.lat]
 
             // if the route already exists on the map, we'll reset it using setData
             /*if (mapInstance.value?.getSource('route')) {
@@ -213,7 +226,7 @@ export default {
       }
 
       // Disable loader
-      loading.value = false
+      // loading.value = false
     }
 
     getAllApi()
@@ -221,12 +234,15 @@ export default {
     return {
       merchants,
       loading,
+      loaded,
+      zoom,
       distanceMatrix,
       handleLoaded,
       accessToken,
       foundRoutes,
       fromID,
       toID,
+      center,
       flyToOptions
     }
   }
@@ -234,6 +250,6 @@ export default {
 </script>
 <style>
 .map-container {
-  min-height: 350px;
+  min-height: 500px;
 }
 </style>

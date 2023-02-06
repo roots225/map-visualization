@@ -16,7 +16,6 @@ import { computed, Ref, ref } from 'vue'
 import { Table } from '@/components/Table'
 import {
   ElSkeleton,
-  ElNotification,
   ElRow,
   ElCard,
   ElCol,
@@ -24,7 +23,6 @@ import {
   ElOption,
   ElButton
 } from 'element-plus'
-import { TableColumn } from '@/types/table'
 
 const { t } = useI18n()
 
@@ -55,7 +53,7 @@ export default {
     const loading = ref(true)
     const merchants = computed(() => merchantStore.getAllMerchants)
 
-    let columns: Ref<TableColumn[]> = ref([
+    let columns: Ref<any[]> = ref([
       {
         field: 'hp2',
         label: 'HP2'
@@ -76,6 +74,10 @@ export default {
       {
         field: 'lat',
         label: 'Latitude'
+      },
+      {
+        field: 'action',
+        label: 'Action'
       }
     ])
 

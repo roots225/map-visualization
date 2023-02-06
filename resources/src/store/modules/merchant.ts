@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia'
-import { store } from '../index'
-import { findIndex } from '@/utils'
 import { Merchant } from '@/entities/merchant'
 import { fetchAllMerchants } from '@/api/merchants'
 
