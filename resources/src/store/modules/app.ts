@@ -43,7 +43,7 @@ export const useAppStore = defineStore('app', {
       userInfo: 'userInfo',
       sizeMap: ['default', 'large', 'small'],
       mobile: false,
-      title: import.meta.env.VITE_APP_TITLE,
+      title: import.meta.env.VITE_APP_TITLE ?? 'Map Visualization',
       pageLoading: false,
 
       breadcrumb: true,
@@ -52,7 +52,7 @@ export const useAppStore = defineStore('app', {
       uniqueOpened: false,
       hamburger: true,
       screenfull: true,
-      size: true,
+      size: false,
       locale: true,
       tagsView: true,
       tagsViewIcon: true,
@@ -67,33 +67,33 @@ export const useAppStore = defineStore('app', {
       isDark: wsCache.get('isDark') || false,
       currentSize: wsCache.get('default') || 'default',
       theme: wsCache.get('theme') || {
-        // 主题色
+        
         elColorPrimary: '#409eff',
-        // 左侧菜单边框颜色
+        
         leftMenuBorderColor: 'inherit',
-        // 左侧菜单背景颜色
+        
         leftMenuBgColor: '#001529',
-        // 左侧菜单浅色背景颜色
+        
         leftMenuBgLightColor: '#0f2438',
-        // 左侧菜单选中背景颜色
+        
         leftMenuBgActiveColor: 'var(--el-color-primary)',
-        // 左侧菜单收起选中背景颜色
+        
         leftMenuCollapseBgActiveColor: 'var(--el-color-primary)',
-        // 左侧菜单字体颜色
+        
         leftMenuTextColor: '#bfcbd9',
-        // 左侧菜单选中字体颜色
+        
         leftMenuTextActiveColor: '#fff',
-        // logo字体颜色
+        
         logoTitleTextColor: '#fff',
-        // logo边框颜色
+        
         logoBorderColor: 'inherit',
-        // 头部背景颜色
+        
         topHeaderBgColor: '#fff',
-        // 头部字体颜色
+        
         topHeaderTextColor: 'inherit',
-        // 头部悬停颜色
+        
         topHeaderHoverColor: '#f6f6f6',
-        // 头部边框颜色
+        
         topToolBorderColor: '#eee'
       }
     }

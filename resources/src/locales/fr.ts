@@ -8,7 +8,7 @@ export default {
     required: 'This is required',
     loginOut: 'Se deconnecter',
     document: 'Document',
-    reminder: 'Rappel',
+    reminder: 'Attention',
     loginOutMessage: 'Se deconnecter?',
     back: 'Retour',
     ok: 'OK',

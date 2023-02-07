@@ -25,7 +25,7 @@ export class Merchant {
   }
 
   get getLabel() {
-    return this.groupName ? `${this.groupName} (${this.hp2})` : this.hp2
+    return this.groupName ? `${this.hp2} ${this.groupName}` : this.hp2
   }
 
   toArrayCoordinate(): number[] {

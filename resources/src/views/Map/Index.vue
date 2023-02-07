@@ -62,7 +62,7 @@
             :color="merchant.color"
           >
             <mapbox-popup>
-              <div> Marchand avec le code : {{ merchant.hp2 }}</div>
+              <div>{{ merchant.hp2 }} {{ merchant.groupName ?? '' }}</div>
             </mapbox-popup>
           </mapbox-marker>
         </MapboxMap>
@@ -75,7 +75,7 @@ import { MapboxMap, MapboxMarker, MapboxPopup } from 'vue-mapbox-ts'
 import { ContentWrap } from '@/components/ContentWrap'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useMerchantStore } from '@/store/modules/merchant'
-import { computed, Ref, ref } from 'vue'
+import { computed, Ref, ref, unref } from 'vue'
 import {
   ElSkeleton,
   ElNotification,
@@ -144,10 +144,11 @@ export default {
       // console.log(map)
       // map.zoomTo(4)
       try {
-        const merchant = merchants[0]
-        center.value = [merchant.lng, merchant.lat]
+        // const merchant = merchants[0]
+        const merchantsValue = unref(merchants)
+        // center.value = [merchant.lng, merchant.lat]
         // flyToOptions.value = { maxDuration: 1000, speed: 1.2, center: [merchant.lng, merchant.lat] }
-        const bbox = [[merchant.lng, merchant.lat]]
+        const bbox = merchantsValue.map((p) => [p.lng, p.lat])
         map.fitBounds(bbox, {
           padding: { top: 10, bottom: 25, left: 15, right: 5 }
         })
