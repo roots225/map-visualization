@@ -10,7 +10,7 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard/analysis',
+    redirect: '/dashboard',
     name: 'Root',
     meta: {
       hidden: true
@@ -63,7 +63,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
     name: 'Dashboard',
     meta: {
       title: t('router.dashboard'),
-      icon: 'ant-design:dashboard-filled',
+      icon: 'mdi-light:view-dashboard',
       alwaysShow: true
     },
     children: [
@@ -73,6 +73,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         name: 'Analysis',
         meta: {
           title: t('router.analysis'),
+          icon: 'ep:house',
           noCache: true,
           affix: true
         }
@@ -90,7 +91,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         name: 'MapIndex',
         meta: {
           title: t('router.map'),
-          icon: 'clarity:document-solid'
+          icon: 'mdi-light:map-marker'
         },
         component: () => import('@/views/Map/Index.vue')
       }
@@ -107,7 +108,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         name: 'ImportExcelData',
         meta: {
           title: t('router.import'),
-          icon: 'clarity:document-solid'
+          icon: 'ep:upload-filled'
         },
         component: () => import('@/views/Import/Index.vue')
       }
@@ -124,7 +125,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         name: 'ListMerchants',
         meta: {
           title: t('router.merchants'),
-          icon: 'clarity:document-solid'
+          icon: 'mdi-light:bank'
         },
         component: () => import('@/views/Merchants/Index.vue')
       }

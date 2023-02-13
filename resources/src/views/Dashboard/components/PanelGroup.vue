@@ -12,7 +12,7 @@ const { getPrefixCls } = useDesign()
 const prefixCls = getPrefixCls('panel')
 
 const loading = ref(true)
-const props = defineProps(['merchants'])
+const props = defineProps(['merchants', 'iconSymbol'])
 loading.value = false
 </script>
 
@@ -27,7 +27,7 @@ loading.value = false
                 <div
                   :class="`${prefixCls}__item--icon ${prefixCls}__item--peoples p-16px inline-block rounded-6px`"
                 >
-                  <Icon icon="svg-icon:peoples" :size="40" />
+                  <Icon :icon="`${iconSymbol ?? 'svg-icon:peoples'}`" :size="40" />
                 </div>
               </div>
               <div class="flex flex-col justify-between">

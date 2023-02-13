@@ -12,13 +12,44 @@ class MerchantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $model = Merchant::all();
+        $page = (int) $request->input('page') ?? 1;
+        $perPage = (int) $request->input('per_page') ?? 10;
+
+        $filterFields = $request->all();
+        unset($filterFields['page']);
+        unset($filterFields['per_page']);
+        
+        $this->unsetAndAdd('latitude', 'lat', $filterFields);
+        $this->unsetAndAdd('longitude', 'lng', $filterFields);
+        $this->unsetAndAdd('ville', 'city', $filterFields);
+        $this->unsetAndAdd('code_postal', 'postal_code', $filterFields);
+        $this->unsetAndAdd('adresse_totale', 'complete_address', $filterFields);
+        $this->unsetAndAdd('adresses_du_patrimoine', 'address', $filterFields);
+
+        $model = Merchant::orderBy('id');
+
+        foreach ($filterFields as $key => $field) {
+            $model->where($key, 'like', '%'.$field.'%');
+        }
+        
+        $data = $model->paginate($perPage, ['*'], 'page', $page);
+        
         return response()->json([
             'code' => 'Ok',
-            'data' => $model
+            'data' => $data
         ]);
+    }
+
+    private function unsetAndAdd($replaced, $added, &$data) {
+        
+        if (isset($data[$replaced])) {
+            $data[$added] =  $data[$replaced];
+            unset($data[$replaced]);
+            // return $data;
+        }
+        
     }
 
     /**

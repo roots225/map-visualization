@@ -86,14 +86,14 @@ export default {
   },
   login: {
     welcome: 'Bienvenue sur le système',
-    message: 'BVotre message ici',
-    username: 'Email',
+    message: 'Système de gestion des biens immobiliers',
+    username: 'E-mail',
     password: 'Mot de passe',
     register: 'Inscription',
     checkPassword: 'Confirmation de mot de passe',
     login: 'Se connecter',
     otherLogin: 'Sign in with',
-    remember: 'Remember me',
+    remember: 'Se souvenir de moi',
     hasUser: 'Existing account? Go to login',
     forgetPassword: 'Mot de passe oublié',
     usernamePlaceholder: 'Veuillez entrer votre adresse email',
@@ -147,7 +147,7 @@ export default {
     /// Customs locales
     import: 'Importation',
     map: 'Carte',
-    merchants: 'Points'
+    merchants: 'Biens'
   },
   permission: {
     hasPermission: 'Please set the operation permission value'
@@ -188,7 +188,7 @@ export default {
     saturday: 'Saturday',
     sunday: 'Sunday',
     /// Custom add
-    point: 'Point'
+    point: 'Groupes Immobiliers'
   },
   workplace: {
     goodMorning: 'Good morning',

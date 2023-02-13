@@ -43,7 +43,7 @@ export const useAppStore = defineStore('app', {
       userInfo: 'userInfo',
       sizeMap: ['default', 'large', 'small'],
       mobile: false,
-      title: import.meta.env.VITE_APP_TITLE ?? 'Map Visualization',
+      title: import.meta.env.VITE_APP_TITLE ?? 'Immobilier',
       pageLoading: false,
 
       breadcrumb: true,
@@ -67,33 +67,32 @@ export const useAppStore = defineStore('app', {
       isDark: wsCache.get('isDark') || false,
       currentSize: wsCache.get('default') || 'default',
       theme: wsCache.get('theme') || {
-        
         elColorPrimary: '#409eff',
-        
+
         leftMenuBorderColor: 'inherit',
-        
+
         leftMenuBgColor: '#001529',
-        
+
         leftMenuBgLightColor: '#0f2438',
-        
+
         leftMenuBgActiveColor: 'var(--el-color-primary)',
-        
+
         leftMenuCollapseBgActiveColor: 'var(--el-color-primary)',
-        
+
         leftMenuTextColor: '#bfcbd9',
-        
+
         leftMenuTextActiveColor: '#fff',
-        
+
         logoTitleTextColor: '#fff',
-        
+
         logoBorderColor: 'inherit',
-        
+
         topHeaderBgColor: '#fff',
-        
+
         topHeaderTextColor: 'inherit',
-        
+
         topHeaderHoverColor: '#f6f6f6',
-        
+
         topToolBorderColor: '#eee'
       }
     }

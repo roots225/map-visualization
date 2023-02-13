@@ -5,15 +5,11 @@ import type { RouteRecordRaw } from 'vue-router'
 import { useTitle } from '@/hooks/web/useTitle'
 import { useNProgress } from '@/hooks/web/useNProgress'
 import { usePermissionStoreWithOut } from '@/store/modules/permission'
-import { useDictStoreWithOut } from '@/store/modules/dict'
 import { usePageLoading } from '@/hooks/web/usePageLoading'
-import { getDictApi } from '@/api/common'
 
 const permissionStore = usePermissionStoreWithOut()
 
 const appStore = useAppStoreWithOut()
-
-const dictStore = useDictStoreWithOut()
 
 const { wsCache } = useCache()
 
@@ -35,13 +31,14 @@ router.beforeEach(async (to, from, next) => {
         return
       }
 
+      /*
       if (!dictStore.getIsSetDict) {
         const res = await getDictApi()
         if (res) {
           dictStore.setDictObj(res.data)
           dictStore.setIsSetDict(true)
         }
-      }
+      }*/
 
       const roleRouters = wsCache.get('roleRouters') || []
       const userInfo = wsCache.get(appStore.getUserInfo)

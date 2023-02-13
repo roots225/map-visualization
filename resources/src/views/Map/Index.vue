@@ -1,22 +1,6 @@
 <template>
-  <ContentWrap title="Points sur carte" message="Vue global des points sur une carte">
+  <ContentWrap title="Biens immobiliers sur carte" message="Vue global des biens sur une carte">
     <el-row :gutter="20" class="mb-3">
-      <el-col :span="24" style="margin: 10px 0">
-        <el-card class="box-card">
-          <template #header>
-            <div class="card-header">
-              <span>Route disponible</span>
-            </div>
-          </template>
-          <div class="text-black">
-            <div v-for="route in foundRoutes" :key="route.distance" class="text item">
-              {{ 'Distance: ' + Number.parseFloat((route.distance * 0.001).toString()).toFixed(2) }}
-              Km
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-
       <el-col :span="6">
         <el-select v-model="fromID" class="m-2" placeholder="Départ" size="large" filterable>
           <el-option
@@ -39,8 +23,16 @@
       </el-col>
       <el-col :span="6" class="align-self-center">
         <el-button type="primary" size="large" :loading="loading" @click="distanceMatrix()"
-          >Trouver la distance</el-button
+          >Calculer la distance</el-button
         >
+      </el-col>
+      <el-col :span="6" class="align-self-center">
+        <div class="text-black">
+          <div v-for="route in foundRoutes" :key="route.distance" class="text item">
+            {{ 'Distance: ' + Number.parseFloat((route.distance * 0.001).toString()).toFixed(2) }}
+            Km
+          </div>
+        </div>
       </el-col>
     </el-row>
 

@@ -18,5 +18,5 @@ getAllApi()
 </script>
 
 <template>
-  <PanelGroup :merchants="merchants" />
+  <PanelGroup :merchants="merchants" iconSymbol="ep:house" />
 </template>

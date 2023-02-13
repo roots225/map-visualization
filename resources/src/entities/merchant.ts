@@ -8,6 +8,7 @@ export class Merchant {
   public postalCode?: string
   public colors: string[] = ['#5DFDCB', '#7CC6FE', '#F4FAFF', '#8789C0']
   groupName?: string
+  jsonData: any
 
   constructor(options: any) {
     this.id = options.id
@@ -18,6 +19,7 @@ export class Merchant {
     this.postalCode = options.postal_code
     this.address = options.address
     this.groupName = options.group_name
+    this.jsonData = options.json_data
   }
 
   static fromObject(data: object) {
