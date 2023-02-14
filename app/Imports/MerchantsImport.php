@@ -22,6 +22,17 @@ class MerchantsImport implements ToModel,WithHeadingRow
         /// Check if exist
         $model = Merchant::where('hp2', $row['hp2'])->first();
         if ($model) {
+            $model->update([
+                'hp2' => $row['hp2'],
+                'address' => $row['adresses_du_patrimoine'] ?? '',
+                'city' => $row['ville'] ?? '',
+                'postal_code' => $row['code_postal'],
+                'complete_address' => $row['adresse_totale'] ?? '',
+                'lat' => $row['latitude'] ?? '',
+                'lng' => $row['longitude'] ?? '',
+                'group_name' => $row['noms_groupes_immobilier'] ?? 'N/A',
+                'json_data' => json_encode($row),
+            ]);
             return;
         }
         
